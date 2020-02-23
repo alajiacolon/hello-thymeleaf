@@ -5,12 +5,30 @@
     <title>Create Event</title>
 </head>
 <body class="container">
-    <h1>Create Event</h1>
     <nav th:replace="fragments :: navigation"></nav>
     <form method="post" action="/events/create">
         <div class="form-group">
             <label> Name
-            <input class="form-control" type="text" name="eventName"/>
+            <input class="form-control" th:field="${events.name}"/>
+            </label>
+            <p class="errors" th:errors="${events.name}"></p> <!--enables thymeleaf to figure out which error messages are associated with the fields-->
+            <label> Description
+            <input class="form-control" th:field="${events.description}"/>
+            </label>
+            <p class="errors" th:errors="${events.description}"></p>
+            <label> Contact Email
+            <input class="form-control" th:field="${events.contactEmail}"/>
+                <p class="errors" th:errors="${events.contactEmail}"></p>
+            </label>
+
+        </div>
+        <div clasa="form-group">
+            <label>Type
+                <select th:field="${events.type}">
+                    <!--This loops through each type in the array of types. The value should be the type itself the text should be the lowercase display name-->
+                    <option th:each="type : ${types}" th:value="${type}" th:text="${type.displayName}"></option>
+
+                </select>
             </label>
         </div>
         <div class="form-group">
